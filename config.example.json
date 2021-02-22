@@ -1,0 +1,60 @@
+{
+	"checkInterval": "30m",
+	"reportEvery": 4,
+	
+	"notification": {
+		"telegram": {
+			"token": "xxxx",
+			"chatIds": []
+		},
+		"email": {
+			"smtp": "localhost:2525",
+			"to": "test@test.com"
+		}
+	},
+	
+	"checks": {
+		"default": [
+			"ping",
+			"disk",
+			"uptime",
+			"mem"
+		],
+		"containerDefault": [
+			"mem",
+			"disk"
+		],
+		"disk": {
+			"alertThreshold": 90
+		}
+	},
+	
+	"servers": [
+		{
+			"name": "localhost",
+			"host": "localhost"
+		},
+		{ 
+			"name": "",
+			"host": "xxx.xxx.xxx.xxx",
+			"hasProcess": ["bitcoind"],
+			"checks": ["process"]
+		},
+		{ 
+			"name": "",
+			"host": "xxx.xxx.xxx.xxx",
+			"checks": ["proxmox-containers"],
+			"containers": {
+				"101": {
+					"checks": [
+						"running"
+					]
+				}
+			}
+		},
+		{ 
+			"name": "",
+			"host": "xxx.xxx.xxx.xxx"
+		}	
+	]
+}
